@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragment.HomeFragment"
+    android:orientation="vertical"
+    android:background="#fff">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:background="@drawable/background">
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Puskesmas Bahagia"
+          android:textSize="25sp"
+          android:textColor="#fff"
+          android:paddingLeft="12dp"
+          android:paddingTop="12dp"/>
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="Hallo.."
+          android:textSize="20sp"
+          android:textColor="#fff"
+          android:paddingLeft="12dp"/>
+  </LinearLayout>
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+      <androidx.viewpager.widget.ViewPager
+          android:id="@+id/viewpager"
+          android:foregroundGravity="center"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:layout_centerInParent="true"
+          android:overScrollMode="never"
+          android:clipToPadding="false"></androidx.viewpager.widget.ViewPager>
+  </RelativeLayout>
+
+
+
+
+</LinearLayout>
