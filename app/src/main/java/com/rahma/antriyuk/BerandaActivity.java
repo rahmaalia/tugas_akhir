@@ -13,7 +13,10 @@ import com.rahma.antriyuk.fragment.HistoryFragment;
 import com.rahma.antriyuk.fragment.HomeFragment;
 import com.rahma.antriyuk.fragment.ProfilFragment;
 
-public class BerandaActivity<navListener> extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+public class BerandaActivity extends AppCompatActivity {
 
 
     @Override
@@ -27,6 +30,8 @@ public class BerandaActivity<navListener> extends AppCompatActivity {
         if (savedInstanceState == null){
             getSupportFragmentManager().beginTransaction().add(R.id.fragment_wadah, new HomeFragment()).commit();
         }
+
+
 
     }
     private BottomNavigationView.OnNavigationItemSelectedListener navListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -49,6 +54,8 @@ public class BerandaActivity<navListener> extends AppCompatActivity {
             return true;
         }
     };
+
+
 
 }
 

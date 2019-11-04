@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,13 +8,19 @@
     android:orientation="vertical"
     android:background="#fff">
 
-  <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+  <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="vertical"
       android:background="@drawable/background">
 
       <TextView
+          android:id="@+id/puskesmas"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="Puskesmas Bahagia"
@@ -24,29 +30,192 @@
           android:paddingTop="12dp"/>
 
       <TextView
-          android:layout_width="match_parent"
+          android:id="@+id/hello"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Hallo.."
+          android:text="Hallo,"
           android:textSize="20sp"
           android:textColor="#fff"
-          android:paddingLeft="12dp"/>
-  </LinearLayout>
+          android:paddingLeft="12dp"
+          android:layout_below="@+id/puskesmas"/>
+      <TextView
+          android:id="@+id/tvNamaResult"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/nama"
+          android:textSize="20sp"
+          android:textColor="#fff"
+          android:paddingLeft="12dp"
+          android:layout_toRightOf="@+id/hello"
+          android:layout_below="@id/puskesmas"/>
+  </RelativeLayout>
 
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent">
 
-      <androidx.viewpager.widget.ViewPager
-          android:id="@+id/viewpager"
-          android:foregroundGravity="center"
+      <TextView
           android:layout_width="match_parent"
-          android:layout_height="match_parent"
-          android:layout_centerInParent="true"
-          android:overScrollMode="never"
-          android:clipToPadding="false"></androidx.viewpager.widget.ViewPager>
+          android:layout_height="wrap_content"
+          android:text="Pilih Poliklinik"
+          android:textColor="#686767"
+          android:textSize="18sp"
+          android:layout_marginLeft="20dp"/>
+
+      <androidx.viewpager.widget.ViewPager
+          android:id="@+id/vp"
+          android:layout_width="match_parent"
+          android:layout_height="230dp"
+          android:clipToPadding="false"
+          android:layout_marginTop="20dp"
+          android:foregroundGravity="center"
+          android:overScrollMode="never"></androidx.viewpager.widget.ViewPager>
+
+      <com.google.android.material.tabs.TabLayout
+          android:id="@+id/dot"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/vp"
+          android:layout_marginTop="-45dp"
+          android:layout_marginLeft="150dp"
+          android:layout_marginRight="150dp"
+          app:tabBackground="@drawable/tab_selector"
+          app:tabGravity="center"
+          app:tabIndicatorHeight="0dp"></com.google.android.material.tabs.TabLayout>
   </RelativeLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                app:cardBackgroundColor="#fff"
+                android:layout_gravity="center"
+                app:cardCornerRadius="12dp"
+                android:layout_margin="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_poli"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:text="POLI ANAK"
+                        android:textAlignment="center"
+                        android:textColor="#499084"
+                        android:textSize="23sp" />
+
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="18dp">
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="16dp">
+
+                            <ImageView
+                                android:id="@+id/iv_doctor"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:src="@drawable/doctor" />
+
+                            <TextView
+                                android:id="@+id/tv_doctor"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="20dp"
+                                android:text="dr.Rahma Aliaputri"
+                                android:textSize="17sp" />
+
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="18dp">
+
+                            <ImageView
+                                android:id="@+id/iv_time"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:src="@drawable/time" />
+
+                            <TextView
+                                android:id="@+id/tv_time"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="00.00"
+                                android:textSize="17sp" />
+
+                            <TextView
+                                android:id="@+id/tv_timeT"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="-55dp"
+                                android:text="00.00"
+                                android:textSize="17sp" />
+
+                            <TextView
+                                android:id="@+id/strip"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:text="-"
+                                android:textSize="17sp"
+                                android:layout_marginLeft="15dp"/>
 
 
 
-</LinearLayout>
+                        </TableRow>
+
+                        <TableRow
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="18dp">
+
+                            <ImageView
+                                android:id="@+id/iv_batas"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:src="@drawable/line" />
+
+                            <TextView
+                                android:id="@+id/tv_batas"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="30dp"
+                                android:text="20 orang "
+                                android:textSize="17sp" />
+
+                        </TableRow>
+                    </TableLayout>
+
+                    <Button
+                        android:id="@+id/btn_pilih"
+                        android:layout_width="250dp"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/btn_login"
+                       android:layout_gravity="center"
+                        android:text="Pilih Poli"
+                        android:textColor="#fff"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
