@@ -21,6 +21,7 @@ import com.rahma.antriyuk.apihelper.RetrofitClient;
 import com.rahma.antriyuk.fragment.HomeFragment;
 import com.rahma.antriyuk.sharedpref.SharedPrefManager;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -116,6 +117,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             String nama = jsonRESULT.getJSONObject("data").getString("nama");
                                             String notelp = jsonRESULT.getJSONObject("data").getString("no_telp");
                                             String username = jsonRESULT.getJSONObject("data").getString("username");
+                                            Log.d("username", "user" + username);
+
                                             sharedPrefManager.saveSPString(SharedPrefManager.SP_NAMA, nama);
                                             sharedPrefManager.saveSPString(SharedPrefManager.SP_TELP, notelp);
                                             sharedPrefManager.saveSPString(SharedPrefManager.SP_USERNAME, username);

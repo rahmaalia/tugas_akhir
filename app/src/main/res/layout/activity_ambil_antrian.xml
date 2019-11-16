@@ -1,9 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ambilAntrian">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="375dp"
+            android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/gambarKlnik"
+            android:layout_width="match_parent"
+            android:layout_height="375dp"
+            android:src="@drawable/gigi"
+            android:scaleType="fitXY"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/back"/>
+
+                <TextView
+                    android:id="@+id/AA_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Detail"
+                    android:textSize="26sp"
+                    android:layout_centerInParent="true"
+                    android:textColor="#000000"/>
+            </RelativeLayout>
+        </FrameLayout>
+    </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="16dp"
+            android:paddingLeft="16dp">
+
+            <TextView
+                android:id="@+id/AA_namapoli"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nama Poli"
+                android:textSize="30sp"
+                android:textColor="#000000"/>
+
+            <TextView
+                android:id="@+id/AA_puskesmas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Puskesmas Bahagia"
+                android:layout_below="@id/AA_namapoli"
+                android:textSize="16sp"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            android:layout_marginTop="25dp"
+            android:gravity="center">
+
+            <RelativeLayout
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="25dp">
+
+                <TextView
+                    android:id="@+id/result_banyakorang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="55sp"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/colorPrimary"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="no antrian yang masuk ruangan"
+                    android:textSize="18sp"
+                    android:layout_toRightOf="@id/result_banyakorang"
+                    android:layout_centerInParent="true"
+                    android:padding="10dp"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="150dp"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/result_antrianSaatIni"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="55sp"
+                    android:textColor="@color/colorPrimary"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="no antrian sebelumnya"
+                    android:textSize="18sp"
+                    android:layout_toRightOf="@id/result_antrianSaatIni"
+                    android:layout_centerInParent="true"
+                    android:padding="10dp"/>
+
+            </RelativeLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnAmbilantrian"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:text="Ambil No Antrian"
+            android:layout_marginTop="55dp"
+            android:background="@drawable/btn_poli"
+            android:layout_gravity="center"
+            android:textColor="#fff"
+            android:layout_marginBottom="28dp"/>
+
+    </LinearLayout>
+</ScrollView>

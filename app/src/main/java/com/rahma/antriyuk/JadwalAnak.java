@@ -38,17 +38,14 @@ import retrofit2.Response;
 
 public class JadwalAnak extends AppCompatActivity {
 
-    TextView tanggall,bulan,tahun,hari,date,TanggalLahir;
-    TextInputLayout textInputLayout;
+    TextView tanggall,bulan,tahun,hari,date,TanggalLahir,namaP,jamB,jamT;
     EditText edtNoIdentitas,edtNama,edtKotaLahir,edtAlamat;
     RadioGroup RjnsKelamin;
     RadioButton RBjnsKelamin;
     Button btnNext;
     Context mContext;
-    ProgressDialog loading;
-    String tanggal,jeniskelamin;
-    int iNomorIdentitas;
-
+    String tanggal,jeniskelamin,nPoli;
+    int id_poli;
     BaseApiService mApiInterface;
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
@@ -59,9 +56,22 @@ public class JadwalAnak extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_jadwal_anak);
-        tanggall = (TextView) findViewById(R.id.tanggal);
-        tahun = (TextView) findViewById(R.id.tahun);
+        tanggall = findViewById(R.id.tanggal);
+        tahun = findViewById(R.id.tahun);
+        namaP = findViewById(R.id.namaPoliJdwl);
+        jamB = findViewById(R.id.date_bukaPoli);
+        jamT = findViewById(R.id.date_tutupPoli);
+
         mContext = this;
+
+        Intent intent = getIntent();
+        nPoli = intent.getStringExtra("namaPoli");
+        String jBuka = intent.getStringExtra("jamBuka");
+        String jTutup = intent.getStringExtra("jamTutup");
+        id_poli=intent.getIntExtra("idPoli",1);
+        namaP.setText(nPoli);
+        jamB.setText(jBuka);
+        jamT.setText(jTutup);
 
         initComponent();
         tanggal();
@@ -85,7 +95,7 @@ public class JadwalAnak extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mApiInterface.postDataPasien(Integer.parseInt(edtNoIdentitas.getText().toString()), edtNama.getText().toString(), edtKotaLahir.getText().toString(), tanggal, edtAlamat.getText().toString(), jeniskelamin)
+                mApiInterface.postDataPasien(id_poli,Integer.parseInt(edtNoIdentitas.getText().toString()), edtNama.getText().toString(), edtKotaLahir.getText().toString(), tanggal, edtAlamat.getText().toString(), jeniskelamin)
                         .enqueue(new Callback<ResponseBody>() {
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -93,9 +103,15 @@ public class JadwalAnak extends AppCompatActivity {
                                     try {
                                         JSONObject jsonRESULT = new JSONObject(response.body().string());
                                         if (jsonRESULT.getString("status").equals("true")){
+                                            int noAntrian =jsonRESULT.getJSONObject("bio").getInt("id");
+                                            String polisId = jsonRESULT.getJSONObject("bio").getString("polis_id");
                                             Toast.makeText(mContext,"berhasil",Toast.LENGTH_SHORT).show();
                                             Intent i = new Intent(JadwalAnak.this,ambilAntrian.class);
+                                            i.putExtra("noAntrian",noAntrian);
+                                            i.putExtra("polisId",polisId);
+                                            i.putExtra("nPoli",nPoli);
                                             startActivity(i);
+                                            finish();
                                         }else {
                                             Toast.makeText(mContext,"Gagal",Toast.LENGTH_SHORT).show();
                                         }
@@ -113,7 +129,6 @@ public class JadwalAnak extends AppCompatActivity {
 
                             }
                         });
-
             }
         });
 

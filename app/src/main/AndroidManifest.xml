@@ -10,10 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ambilAntrian"></activity>
+        <activity
+            android:name=".StrukActivity"
+            android:theme="@style/AppTheme1">
+        </activity>
+        <activity android:name=".ambilAntrian"/>
         <activity
             android:name=".JadwalAnak"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".BerandaActivity"
             android:theme="@style/AppTheme" />
