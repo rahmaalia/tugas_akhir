@@ -5,13 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rahma.antriyuk.apihelper.BaseApiService;
 import com.rahma.antriyuk.apihelper.RetrofitClient;
+import com.rahma.antriyuk.sharedpref.SharedPrefManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,11 +31,13 @@ import retrofit2.Response;
 public class ambilAntrian extends AppCompatActivity {
 
     TextView namaPoli,noantrian,tanggal;
-    String kodeAntrian,polisId,namaPolis,namapoli,Noantrian;
+    String kodeAntrian,namaPolis,nama,kota_lahir,alamat,jenis_kelamin,tgl_lahir,no_identitas,noAntrianSblm;
     Button btnAntrian;
     Context mContext;
-    int noAntrian,idPoli;
+    ImageView btnback;
+    int noAntrian,id_poli,polisId;
     BaseApiService mApiInterface;
+    SharedPrefManager sharedPrefManager;
 
 
     @Override
@@ -43,57 +48,78 @@ public class ambilAntrian extends AppCompatActivity {
         namaPoli = findViewById(R.id.AA_namapoli);
         noantrian = findViewById(R.id.result_antrianSaatIni);
         btnAntrian = findViewById(R.id.btnAmbilantrian);
+        btnback = findViewById(R.id.btn_back);
 
+        sharedPrefManager = new SharedPrefManager(this);
         mContext = this;
 
         Intent intent = getIntent();
         namaPolis = intent.getStringExtra("nPoli");
-        polisId = intent.getStringExtra("polisId");
-        noAntrian = intent.getIntExtra("noAntrian",1);
-        String noAntrianSblm = String.valueOf(noAntrian -1);
-        namaPoli.setText(namaPolis);
-        noantrian.setText(noAntrianSblm);
-        idPoli = Integer.parseInt(polisId);
+        polisId = intent.getIntExtra("idpoli",1);
 
-        if (polisId.equals("1")){
-            kodeAntrian = "PA" +noAntrian;
-        }else if (polisId.equals("2")){
-            kodeAntrian = "PG" +noAntrian;
-        }else if (polisId.equals("3")){
-            kodeAntrian = "PU" +noAntrian;
-        }else if (polisId.equals("4")){
-            kodeAntrian = "PM" +noAntrian;
+        namaPoli.setText(namaPolis);
+        mApiInterface = RetrofitClient.getClient(RetrofitClient.BASE_URL_API).create(BaseApiService.class);
+
+
+
+        no_identitas = intent.getStringExtra("no_identitas");
+        nama = intent.getStringExtra("nama");
+        kota_lahir = intent.getStringExtra("kota_lhr");
+        tgl_lahir = intent.getStringExtra("tanggal");
+        alamat = intent.getStringExtra("alamat");
+        jenis_kelamin = intent.getStringExtra("jnskelamin");
+
+        noAntrian = sharedPrefManager.getSpNoantri();
+
+
+        if (polisId == 1){
+            noAntrianSblm = "PA-" +noAntrian;
+        }else if (polisId == 2){
+            noAntrianSblm = "PG-" +noAntrian;
+        }else if (polisId == 3){
+            noAntrianSblm = "PU-" +noAntrian;
+        }else if (polisId == 4){
+            noAntrianSblm = "PM-" +noAntrian;
+        }
+        noantrian.setText(noAntrianSblm);
+
+        if (polisId == 1){
+            kodeAntrian = "PA-" +(noAntrian+1);
+        }else if (polisId == 2){
+            kodeAntrian = "PG-" +(noAntrian+1);
+        }else if (polisId == 3){
+            kodeAntrian = "PU-" +(noAntrian+1);
+        }else if (polisId == 4){
+            kodeAntrian = "PM-" +(noAntrian+1);
         }
 
-        mApiInterface = RetrofitClient.getClient(RetrofitClient.BASE_URL_API).create(BaseApiService.class);
         btnAntrian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mApiInterface.postAntri(kodeAntrian,noAntrian,idPoli)
+                mApiInterface.postDataPasien(polisId,no_identitas,nama,kota_lahir,tgl_lahir,alamat,jenis_kelamin,kodeAntrian)
                         .enqueue(new Callback<ResponseBody>() {
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            if (response.isSuccessful()){
-                                try {
-                                    JSONObject jsonRESULT = new JSONObject(response.body().string());
-                                    if (jsonRESULT.getString("pesan").equals("berhasil")){
-                                        namapoli = jsonRESULT.getJSONObject("bio").getString("nama_poli");
-                                        Noantrian = jsonRESULT.getJSONObject("bio").getString("no_antrian");
-                                        Toast.makeText(mContext,"berhasil",Toast.LENGTH_SHORT).show();
-                                        Intent i = new Intent(ambilAntrian.this,StrukActivity.class);
-                                        i.putExtra("namapoli",namapoli);
-                                        i.putExtra("noantrian",Noantrian);
-                                        startActivity(i);
+                                if (response.isSuccessful()){
+                                    try {
+                                        JSONObject jsonRESULT = new JSONObject(response.body().string());
+                                        if (jsonRESULT.getString("pesan").equals("berhasil")){
+                                            Toast.makeText(mContext,"berhasil",Toast.LENGTH_SHORT).show();
+                                            Intent i = new Intent(ambilAntrian.this,StrukActivity.class);
+                                            i.putExtra("kode_antri",kodeAntrian);
+                                            i.putExtra("nPoli", namaPolis);
+                                            startActivity(i);
+                                            finish();
+                                        }else {
+                                            Toast.makeText(mContext,"Gagal",Toast.LENGTH_SHORT).show();
+                                        }
 
-                                    }else {
-                                        Toast.makeText(mContext,"Gagal",Toast.LENGTH_SHORT).show();
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    } catch (IOException e) {
+                                        e.printStackTrace();
                                     }
-                                } catch (JSONException e) {
-                                    e.printStackTrace();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
                                 }
-                            }
                             }
 
                             @Override
@@ -101,7 +127,14 @@ public class ambilAntrian extends AppCompatActivity {
 
                             }
                         });
+            }
+        });
 
+        btnback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(ambilAntrian.this,JadwalAnak.class);
+                startActivity(i);
             }
         });
 

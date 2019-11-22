@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.google.android.material.textfield.TextInputLayout;
 import com.rahma.antriyuk.apihelper.BaseApiService;
 import com.rahma.antriyuk.apihelper.RetrofitClient;
+import com.rahma.antriyuk.sharedpref.SharedPrefManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,7 +39,7 @@ import retrofit2.Response;
 
 public class JadwalAnak extends AppCompatActivity {
 
-    TextView tanggall,bulan,tahun,hari,date,TanggalLahir,namaP,jamB,jamT;
+    TextView tanggall,bulan,tahun,hari,tvdate,TanggalLahir,namaP,jamB,jamT,ILtanggal;
     EditText edtNoIdentitas,edtNama,edtKotaLahir,edtAlamat;
     RadioGroup RjnsKelamin;
     RadioButton RBjnsKelamin;
@@ -46,7 +47,10 @@ public class JadwalAnak extends AppCompatActivity {
     Context mContext;
     String tanggal,jeniskelamin,nPoli;
     int id_poli;
+    String Tanggal;
     BaseApiService mApiInterface;
+    TextInputLayout ILnoidentitas,ILnama,ILkotalhr,ILalamat,ILjnsklmn;
+    SharedPrefManager sharedPrefManager;
 
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     private static final String TAG = "JadwalAnak";
@@ -62,6 +66,8 @@ public class JadwalAnak extends AppCompatActivity {
         jamB = findViewById(R.id.date_bukaPoli);
         jamT = findViewById(R.id.date_tutupPoli);
 
+        sharedPrefManager = new SharedPrefManager(this);
+        mApiInterface = RetrofitClient.getClient(RetrofitClient.BASE_URL_API).create(BaseApiService.class);
         mContext = this;
 
         Intent intent = getIntent();
@@ -76,7 +82,35 @@ public class JadwalAnak extends AppCompatActivity {
         initComponent();
         tanggal();
         datePicker();
+        getAntri();
     }
+
+    private void getAntri() {
+        mApiInterface.getAntri(id_poli).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    try {
+                        JSONObject jsonRESULT = new JSONObject(response.body().string());
+
+                       int noAntrian = jsonRESULT.getJSONObject("no_antrian").getInt("id");
+                       sharedPrefManager.saveSPint(String.valueOf(SharedPrefManager.SP_NOANTRI),noAntrian);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+            }
+        });
+    }
+
 
     private void initComponent() {
         edtNoIdentitas = findViewById(R.id.edtNoIdentitasjdwl);
@@ -86,87 +120,104 @@ public class JadwalAnak extends AppCompatActivity {
         TanggalLahir = findViewById(R.id.edtPilihTtlJdwl);
         RjnsKelamin = findViewById(R.id.RbJnsKelamin);
         btnNext = findViewById(R.id.btnNextJdwl);
+
+        ILnoidentitas = findViewById(R.id.iL_noIdentitas);
+        ILnama = findViewById(R.id.iL_nama);
+        ILkotalhr = findViewById(R.id.iL_kota);
+        ILtanggal = findViewById(R.id.edtPilihTtlJdwl);
+        ILalamat = findViewById(R.id.iL_alamat);
+
         int selected = RjnsKelamin.getCheckedRadioButtonId();
         RBjnsKelamin = findViewById(selected);
 
-         jeniskelamin = RBjnsKelamin.getText().toString();
+        jeniskelamin = RBjnsKelamin.getText().toString();
 
-        mApiInterface = RetrofitClient.getClient(RetrofitClient.BASE_URL_API).create(BaseApiService.class);
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mApiInterface.postDataPasien(id_poli,Integer.parseInt(edtNoIdentitas.getText().toString()), edtNama.getText().toString(), edtKotaLahir.getText().toString(), tanggal, edtAlamat.getText().toString(), jeniskelamin)
-                        .enqueue(new Callback<ResponseBody>() {
-                            @Override
-                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                if (response.isSuccessful()){
-                                    try {
-                                        JSONObject jsonRESULT = new JSONObject(response.body().string());
-                                        if (jsonRESULT.getString("status").equals("true")){
-                                            int noAntrian =jsonRESULT.getJSONObject("bio").getInt("id");
-                                            String polisId = jsonRESULT.getJSONObject("bio").getString("polis_id");
-                                            Toast.makeText(mContext,"berhasil",Toast.LENGTH_SHORT).show();
-                                            Intent i = new Intent(JadwalAnak.this,ambilAntrian.class);
-                                            i.putExtra("noAntrian",noAntrian);
-                                            i.putExtra("polisId",polisId);
-                                            i.putExtra("nPoli",nPoli);
-                                            startActivity(i);
-                                            finish();
-                                        }else {
-                                            Toast.makeText(mContext,"Gagal",Toast.LENGTH_SHORT).show();
-                                        }
 
-                                    } catch (JSONException e) {
-                                        e.printStackTrace();
-                                    } catch (IOException e) {
-                                        e.printStackTrace();
-                                    }
-                                }
-                            }
+                if (edtNoIdentitas.length() == 0 || edtNama.length() == 0 || edtKotaLahir.length() == 0 || tanggal.length() == 0 || edtAlamat.length() == 0 || jeniskelamin.length() == 0) {
+                    Toast.makeText(mContext, "Isi Semua Field", Toast.LENGTH_LONG).show();
+                    if (edtNoIdentitas.length() == 0) {
+                        ILnoidentitas.setError("No Identitas tidak boleh kosong");
+                    } else if (edtNoIdentitas.length() != 0) {
+                        ILnoidentitas.setError(null);
+                        ILnoidentitas.setErrorEnabled(false);
+                    }
+                    if (edtNama.length() == 0) {
+                        ILnama.setError("Nama tidak boleh kosong");
+                    } else {
+                        ILnama.setError(null);
+                        ILnama.setErrorEnabled(false);
+                    }
+                    if (edtKotaLahir.length() == 0) {
+                        ILkotalhr.setError("Kota Lahir tidak boleh kosong");
+                    } else {
+                        ILkotalhr.setError(null);
+                        ILkotalhr.setErrorEnabled(false);
+                    }
+                    if (edtAlamat.length() == 0) {
+                        ILalamat.setError("Alamat tidak boleh kosong");
+                    } else {
+                        ILalamat.setError(null);
+                        ILalamat.setErrorEnabled(false);
+                    }
+                } else {
+                    Intent i = new Intent(JadwalAnak.this,ambilAntrian.class);
+                     i.putExtra("no_identitas", edtNoIdentitas.getText().toString());
+                    i.putExtra("nama", edtNama.getText().toString());
+                    i.putExtra("kota_lhr", edtKotaLahir.getText().toString());
+                    i.putExtra("tanggal",Tanggal);
+                    i.putExtra("alamat", edtAlamat.getText().toString());
+                    i.putExtra("jnskelamin",jeniskelamin);
+                    i.putExtra("nPoli",nPoli);
+                    i.putExtra("idpoli",id_poli);
 
-                            @Override
-                            public void onFailure(Call<ResponseBody> call, Throwable t) {
-
-                            }
-                        });
+                    startActivity(i);
+                    finish();
+                }
             }
-        });
 
+        });
     }
 
-    private void datePicker() {
-        date = findViewById(R.id.edtPilihTtlJdwl);
 
-        date.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Calendar cal = Calendar.getInstance();
-                int year = cal.get(Calendar.YEAR);
-                int month = cal.get(Calendar.MONTH);
-                int day = cal.get(Calendar.DAY_OF_MONTH);
+            private void datePicker() {
+                tvdate = findViewById(R.id.edtPilihTtlJdwl);
 
-                DatePickerDialog dialog = new DatePickerDialog(
-                        JadwalAnak.this,
-                        android.R.style.Theme_Holo_Light_Dialog_MinWidth,
-                        mDateSetListener,
-                        year,month,day);
-                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-                dialog.show();
+                tvdate.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Calendar cal = Calendar.getInstance();
+                        int year = cal.get(Calendar.YEAR);
+                        int month = cal.get(Calendar.MONTH);
+                        int day = cal.get(Calendar.DAY_OF_MONTH);
+
+                        DatePickerDialog dialog = new DatePickerDialog(
+                                JadwalAnak.this,
+                                android.R.style.Theme_Holo_Light_Dialog_MinWidth,
+                                mDateSetListener,
+                                year, month, day);
+                        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+                        dialog.show();
+                    }
+                });
+
+                mDateSetListener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        month = month + 1;
+                        Log.d(TAG, "onDateSet: mm/dd/yyy: " + day + "/" + month + "/" + year);
+
+                        tanggal = day + "/" + month + "/" + year;
+                        tvdate.setText(tanggal);
+                        Tanggal=tvdate.getText().toString();
+
+                    }
+                };
             }
-        });
 
-        mDateSetListener = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                month = month + 1;
-                Log.d(TAG, "onDateSet: mm/dd/yyy: " + day + "/" + month + "/" + year);
 
-                tanggal = day + "/" + month + "/" + year;
-                date.setText(tanggal);
-
-            }
-        };
-    }
 
     public void tanggal (){
 
@@ -187,10 +238,10 @@ public class JadwalAnak extends AppCompatActivity {
         bulan = (TextView) findViewById(R.id.bulan);
         hari = (TextView) findViewById(R.id.hari);
 
-        bulan.setText(" "+bulann );
-        tahun.setText(" "+tahunn );
-        hari.setText(" "+ harii + "," );
-        tanggall.setText(" " +date);
+        bulan.setText(""+bulann );
+        tahun.setText(""+tahunn );
+        hari.setText(""+ harii + "," );
+        tanggall.setText("" +date);
 
 
 

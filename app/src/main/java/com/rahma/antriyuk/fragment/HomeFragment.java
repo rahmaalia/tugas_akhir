@@ -17,14 +17,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.tabs.TabLayout;
-import com.google.gson.JsonObject;
 import com.rahma.antriyuk.Adapter.Adapter;
 import com.rahma.antriyuk.Entity.EPoli;
 import com.rahma.antriyuk.JadwalAnak;
 import com.rahma.antriyuk.R;
 import com.rahma.antriyuk.apihelper.BaseApiService;
 import com.rahma.antriyuk.apihelper.RetrofitClient;
-import com.rahma.antriyuk.model.MPoli;
 import com.rahma.antriyuk.modelVp;
 import com.rahma.antriyuk.sharedpref.SharedPrefManager;
 

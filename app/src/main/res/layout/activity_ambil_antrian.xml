@@ -32,6 +32,7 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    android:id="@+id/btn_back"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/back"/>
@@ -74,22 +75,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:orientation="vertical"
             android:padding="16dp"
             android:layout_marginTop="25dp"
             android:gravity="center">
 
             <RelativeLayout
-                android:layout_width="150dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="25dp">
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/result_banyakorang"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="55sp"
+                    android:textSize="45sp"
                     android:layout_centerVertical="true"
                     android:textColor="@color/colorPrimary"/>
 
@@ -105,15 +106,16 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="150dp"
-                android:layout_height="wrap_content">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
                 <TextView
                     android:id="@+id/result_antrianSaatIni"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="55sp"
+                    android:text="PA-12"
+                    android:textSize="45sp"
                     android:textColor="@color/colorPrimary"/>
 
                 <TextView

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,13 +20,15 @@ import com.rahma.antriyuk.sharedpref.SharedPrefManager;
 
 import org.w3c.dom.Text;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
 public class ProfilFragment extends Fragment {
 
-    TextView TvResultNama,resultUsername;
-
-
+    TextView TvResultNama,resultUsername,resultNotelp;
+    ImageView edit;
+    public static ProfilFragment pf;
+    String nama,nomer,username;
     SharedPrefManager sharedPrefManager;
     View view;
     Button bt_keluar;
@@ -41,6 +44,12 @@ public class ProfilFragment extends Fragment {
         initComponenrt();
         TvResultNama.setText(sharedPrefManager.getSpNama());
         resultUsername.setText(sharedPrefManager.getSpNama());
+        resultNotelp.setText(sharedPrefManager.getSpTelp());
+
+        nama = sharedPrefManager.getSpNama();
+        nomer = sharedPrefManager.getSpTelp();
+        username = sharedPrefManager.getSpUsername();
+        pf = this;
 
 
         bt_keluar = (Button) view.findViewById(R.id.bt_keluar);
@@ -53,11 +62,39 @@ public class ProfilFragment extends Fragment {
                         .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
             }
         });
+
+//        edit = view.findViewById(R.id.btnEdit);
+//        edit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent i = new Intent(getContext(), EditActivity.class);
+//                i.putExtra("nama",nama);
+//                i.putExtra("nomer",nomer);
+//                i.putExtra("username",username);
+//                startActivityForResult(i, 0x01);
+//            }
+//        });
+//
         return view;
     }
+
 
     private void initComponenrt() {
         TvResultNama = view.findViewById(R.id.NamaUtama);
         resultUsername = view.findViewById(R.id.p_user);
+        resultNotelp = view.findViewById(R.id.p_notelp);
+
     }
+
+
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == 0x01 && resultCode == RESULT_OK) {
+//            llInfo.setVisibility(View.GONE);
+//            loadUserInfo();
+//        }
+//    }
 }

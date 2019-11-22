@@ -139,10 +139,12 @@
 
                         </TableRow>
 
+
                         <TableRow
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="18dp">
+
 
                             <ImageView
                                 android:id="@+id/iv_time"
@@ -150,33 +152,39 @@
                                 android:layout_height="30dp"
                                 android:src="@drawable/time" />
 
-                            <TextView
-                                android:id="@+id/tv_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
                                 android:layout_gravity="center"
-                                android:text="00.00"
-                                android:textSize="17sp" />
+                                android:layout_marginLeft="20dp">
+
 
                             <TextView
                                 android:id="@+id/tv_timeT"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
-                                android:layout_marginRight="-55dp"
-                                android:text="00.00"
-                                android:textSize="17sp" />
+                                android:layout_toRightOf="@id/strip"
+                                android:text="00.00.00"
+                                android:textSize="17sp"
+                                android:layout_marginLeft="10dp"/>
+
+                                <TextView
+                                 android:id="@+id/tv_time"
+                                 android:layout_width="wrap_content"
+                                 android:layout_height="wrap_content"
+                                 android:text="00.00.00"
+                                 android:textSize="17sp" />
 
                             <TextView
                                 android:id="@+id/strip"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center"
                                 android:text="-"
                                 android:textSize="17sp"
-                                android:layout_marginLeft="15dp"/>
+                                android:layout_toRightOf="@id/tv_time"
+                                android:layout_marginLeft="10dp"/>
 
-
+                            </RelativeLayout>
 
                         </TableRow>
 

@@ -3,7 +3,7 @@ package com.rahma.antriyuk.apihelper;
 //Class ini berfungsi untuk mengisi perintah-perintah apa saja yang diperlukan
 // untuk berkomunikasi dengan API. Seperti GET,POST,UPDATE, DELETE.
 
-import com.rahma.antriyuk.model.MPoli;
+import com.rahma.antriyuk.model.Mhistory;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -11,6 +11,8 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface BaseApiService {
 
@@ -27,21 +29,29 @@ public interface BaseApiService {
                                        @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("data_pasien")
+    @POST("antri")
     Call<ResponseBody> postDataPasien(@Field("id_poli") int id,
-                                      @Field("no_identitas") int no_identitas,
+                                      @Field("no_identitas") String no_identitas,
                                       @Field("nama") String nama,
                                       @Field("kota_lahir") String kota_lahir,
                                       @Field("tgl_lahir") String tgl_lahir,
                                       @Field("alamat") String alamat,
-                                      @Field("jenis_kelamin") String jenis_kelamin);
+                                      @Field("jenis_kelamin") String jenis_kelamin,
+                                      @Field("no_antrian") String no_antrian);
+
+    @GET("antri/{id_poli}")
+    Call<ResponseBody> getAntri(@Path("id_poli") int id_poli);
 
     @GET("poli")
     Call<ResponseBody> getPoli();
 
+    @GET("gett")
+    Call<Mhistory> getHistory ();
+
     @FormUrlEncoded
-    @POST("antri")
-    Call<ResponseBody> postAntri (@Field("no_antrian") String no_antrian,
-                                  @Field("data_pasiens_id") int data_pasiens_id,
-                                  @Field("polis_id") int polis_id);
+    @PUT("/user/{id}")
+    Call<ResponseBody> update (@Field("nama") String nama,
+                               @Field("no_telp") String no_telp);
+
+
 }

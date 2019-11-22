@@ -10,14 +10,11 @@
     tools:context=".BerandaActivity"
     android:background="#fff">
 
-    <TextView
-        android:id="@+id/tv_fragHis"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/Hrc"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textSize="30sp"
-        android:textColor="#747373"
-        android:text="No History"
-        />
+        android:layout_height="wrap_content">
+
+    </androidx.recyclerview.widget.RecyclerView>
 
 </LinearLayout>

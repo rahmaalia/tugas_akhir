@@ -61,8 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
 
-//        etUsername = findViewById(R.id.username);
-//        etpassword = findViewById(R.id.password);
         TextView btRegister=findViewById(R.id.txtDaftar);
         Button btnMoveActivity = findViewById(R.id.btnLogin);
         btnMoveActivity.setOnClickListener(this);

@@ -22,8 +22,8 @@ public class StrukActivity extends AppCompatActivity {
         namapoli = findViewById(R.id.poliname);
 
         Intent intent = getIntent();
-        noantrians = intent.getStringExtra("namapoli");
-        namapolis = intent.getStringExtra("noantrian");
+        noantrians = intent.getStringExtra("kode_antri");
+        namapolis = intent.getStringExtra("nPoli");
         noantri.setText(noantrians);
         namapoli.setText(namapolis);
 
@@ -34,7 +34,7 @@ public class StrukActivity extends AppCompatActivity {
         Calendar c = Calendar.getInstance(TimeZone.getDefault());
 
         String[] namaBulan = {"Januari","Februari","Maret", "April", "Mei", "Juni", "Juli",
-                "Agustus", "September", "Oktober", "Novevenber",
+                "Agustus", "September", "Oktober", "November",
                 "Desember"};
 
         String [] namaHari = {  "Sabtu", "Minggu", "Senin", "Selasa", "Rabu", "Kamis","Jumat"};
@@ -47,7 +47,7 @@ public class StrukActivity extends AppCompatActivity {
 
         tanggal = (TextView) findViewById(R.id.tanggals);
 
-        tanggal.setText(" ,"+harii+ " " +date+ " " +bulann+ " " +tahunn);
+        tanggal.setText(" "+harii+","+ " " +date+ " " +bulann+ " " +tahunn);
 
     }
 }
