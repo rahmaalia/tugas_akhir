@@ -9,7 +9,8 @@ public class SharedPrefManager {
     public static final String SP_USERNAME="spUsername";
     public static final String SP_TELP="spTelp";
 
-    public static final int SP_NOANTRI = 1;
+    public static final int SP_IDUSER = 1;
+    public static final int SP_NOANTRI = 2;
     public static final String SP_LOGIN="spLogin";
 
     SharedPreferences sp;
@@ -46,7 +47,9 @@ public class SharedPrefManager {
     public int getSpNoantri(){
         return sp.getInt(String.valueOf(SP_NOANTRI),1);
     }
-
+    public int getSpIduser(){
+        return sp.getInt(String.valueOf(SP_IDUSER),2);
+    }
 
 
 }

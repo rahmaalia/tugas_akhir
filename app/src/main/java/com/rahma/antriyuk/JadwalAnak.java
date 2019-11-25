@@ -227,7 +227,7 @@ public class JadwalAnak extends AppCompatActivity {
                 "Agustus", "September", "Oktober", "Novevenber",
                 "Desember"};
 
-        String [] namaHari = {  "Sabtu", "Minggu", "Senin", "Selasa", "Rabu", "Kamis","Jumat"};
+        String [] namaHari = {  "Sabtu", "Minggu", "Senin", "Selasa", "Rabu", "Kamis","Jumat","sabtu"};
 
         String bulann = namaBulan[c.get(Calendar.MONTH)];
         String harii = namaHari[c.get(Calendar.DAY_OF_WEEK)];

@@ -10,48 +10,52 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rahma.antriyuk.Entity.EHistory;
+import com.rahma.antriyuk.Entity.MAntrianak;
+import com.rahma.antriyuk.Entity.MAntrimata;
 import com.rahma.antriyuk.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder> {
+public class AnakAdapter extends RecyclerView.Adapter<AnakAdapter.HistoryViewHolder> {
+    private List<MAntrianak> listAnak;
+    Context mContext;
 
-    public HistoryAdapter(LayoutInflater mInflanter) {
 
-    }
-
-    public HistoryAdapter(Context context, List<EHistory> data_history) {
+    public AnakAdapter(Context context, List<MAntrianak> data_history) {
+        this.mContext = context;
+        listAnak  = data_history;
     }
 
     public class HistoryViewHolder extends RecyclerView.ViewHolder{
 
-        public final TextView namapoli,noantrian;
+        public final TextView namapasien,noantrian;
 
         public HistoryViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            namapoli = itemView.findViewById(R.id.H_namapoli);
+            namapasien = itemView.findViewById(R.id.H_namapasien);
             noantrian = itemView.findViewById(R.id.H_noantri);
         }
     }
 
-
-
     @NonNull
     @Override
     public HistoryViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        return null;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_history, parent, false);
+        return new AnakAdapter.HistoryViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull HistoryViewHolder holder, int position) {
-
+        final MAntrianak antrianak  = listAnak.get(position);
+        holder.namapasien.setText(antrianak.getNama());
+        holder.noantrian.setText(antrianak.getNoAntrian());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return listAnak.size();
     }
 
 

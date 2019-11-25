@@ -3,6 +3,7 @@ package com.rahma.antriyuk.apihelper;
 //Class ini berfungsi untuk mengisi perintah-perintah apa saja yang diperlukan
 // untuk berkomunikasi dengan API. Seperti GET,POST,UPDATE, DELETE.
 
+import com.rahma.antriyuk.model.Mantri;
 import com.rahma.antriyuk.model.Mhistory;
 
 import okhttp3.ResponseBody;
@@ -31,6 +32,7 @@ public interface BaseApiService {
     @FormUrlEncoded
     @POST("antri")
     Call<ResponseBody> postDataPasien(@Field("id_poli") int id,
+                                      @Field("users_id") int iduser,
                                       @Field("no_identitas") String no_identitas,
                                       @Field("nama") String nama,
                                       @Field("kota_lahir") String kota_lahir,
@@ -38,6 +40,11 @@ public interface BaseApiService {
                                       @Field("alamat") String alamat,
                                       @Field("jenis_kelamin") String jenis_kelamin,
                                       @Field("no_antrian") String no_antrian);
+
+    @FormUrlEncoded
+    @POST("postber")
+    Call<Mantri> HistoryRequest(@Field("id_user") int id_user,
+                                @Field("status") String status) ;
 
     @GET("antri/{id_poli}")
     Call<ResponseBody> getAntri(@Path("id_poli") int id_poli);

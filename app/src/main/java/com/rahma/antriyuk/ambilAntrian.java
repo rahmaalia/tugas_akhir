@@ -30,12 +30,12 @@ import retrofit2.Response;
 
 public class ambilAntrian extends AppCompatActivity {
 
-    TextView namaPoli,noantrian,tanggal;
+    TextView namaPoli,noantrian,tanggal,estimasiAntrian;
     String kodeAntrian,namaPolis,nama,kota_lahir,alamat,jenis_kelamin,tgl_lahir,no_identitas,noAntrianSblm;
     Button btnAntrian;
     Context mContext;
     ImageView btnback;
-    int noAntrian,id_poli,polisId;
+    int noAntrian,id_poli,polisId,users_id;
     BaseApiService mApiInterface;
     SharedPrefManager sharedPrefManager;
 
@@ -49,6 +49,7 @@ public class ambilAntrian extends AppCompatActivity {
         noantrian = findViewById(R.id.result_antrianSaatIni);
         btnAntrian = findViewById(R.id.btnAmbilantrian);
         btnback = findViewById(R.id.btn_back);
+        estimasiAntrian = findViewById(R.id.result_estimasi);
 
         sharedPrefManager = new SharedPrefManager(this);
         mContext = this;
@@ -70,7 +71,7 @@ public class ambilAntrian extends AppCompatActivity {
         jenis_kelamin = intent.getStringExtra("jnskelamin");
 
         noAntrian = sharedPrefManager.getSpNoantri();
-
+        users_id = sharedPrefManager.getSpIduser();
 
         if (polisId == 1){
             noAntrianSblm = "PA-" +noAntrian;
@@ -92,11 +93,12 @@ public class ambilAntrian extends AppCompatActivity {
         }else if (polisId == 4){
             kodeAntrian = "PM-" +(noAntrian+1);
         }
+        estimasiAntrian.setText(kodeAntrian);
 
         btnAntrian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mApiInterface.postDataPasien(polisId,no_identitas,nama,kota_lahir,tgl_lahir,alamat,jenis_kelamin,kodeAntrian)
+                mApiInterface.postDataPasien(polisId,users_id,no_identitas,nama,kota_lahir,tgl_lahir,alamat,jenis_kelamin,kodeAntrian)
                         .enqueue(new Callback<ResponseBody>() {
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

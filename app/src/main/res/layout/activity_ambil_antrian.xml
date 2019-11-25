@@ -75,57 +75,63 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:padding="16dp"
             android:layout_marginTop="25dp"
             android:gravity="center">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center">
 
-                <TextView
-                    android:id="@+id/result_banyakorang"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="45sp"
-                    android:layout_centerVertical="true"
-                    android:textColor="@color/colorPrimary"/>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="no antrian yang masuk ruangan"
-                    android:textSize="18sp"
-                    android:layout_toRightOf="@id/result_banyakorang"
-                    android:layout_centerInParent="true"
-                    android:padding="10dp"/>
-
-            </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:gravity="center">
+                android:gravity="center"
+                android:layout_marginRight="15dp">
 
                 <TextView
                     android:id="@+id/result_antrianSaatIni"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:text="PA-12"
                     android:textSize="45sp"
-                    android:textColor="@color/colorPrimary"/>
+                    android:textColor="@color/colorPrimary"
+                    android:gravity="center"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="no antrian sebelumnya"
                     android:textSize="18sp"
-                    android:layout_toRightOf="@id/result_antrianSaatIni"
+                    android:layout_below="@id/result_antrianSaatIni"
                     android:layout_centerInParent="true"
-                    android:padding="10dp"/>
+                    android:padding="5dp"
+                    android:gravity="center"/>
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <TextView
+                    android:id="@+id/result_estimasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="PA-13"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="45sp"
+                    android:gravity="center"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/result_estimasi"
+                    android:layout_centerInParent="true"
+                    android:padding="5dp"
+                    android:text="estimasi no antrian"
+                    android:textSize="18sp"
+                    android:gravity="center"/>
 
             </RelativeLayout>
         </LinearLayout>

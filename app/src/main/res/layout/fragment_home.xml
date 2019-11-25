@@ -188,26 +188,26 @@
 
                         </TableRow>
 
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginBottom="18dp">
+<!--                        <TableRow-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_marginBottom="18dp">-->
 
-                            <ImageView
-                                android:id="@+id/iv_batas"
-                                android:layout_width="match_parent"
-                                android:layout_height="30dp"
-                                android:src="@drawable/line" />
+<!--                            <ImageView-->
+<!--                                android:id="@+id/iv_batas"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="30dp"-->
+<!--                                android:src="@drawable/line" />-->
 
-                            <TextView
-                                android:id="@+id/tv_batas"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="30dp"
-                                android:text="20 orang "
-                                android:textSize="17sp" />
+<!--                            <TextView-->
+<!--                                android:id="@+id/tv_batas"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:layout_marginLeft="30dp"-->
+<!--                                android:text="20 orang "-->
+<!--                                android:textSize="17sp" />-->
 
-                        </TableRow>
+<!--                        </TableRow>-->
                     </TableLayout>
 
                     <Button

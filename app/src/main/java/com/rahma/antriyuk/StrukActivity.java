@@ -4,7 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.rahma.antriyuk.fragment.HistoryFragment;
 
 import java.util.Calendar;
 import java.util.TimeZone;
@@ -12,6 +16,7 @@ import java.util.TimeZone;
 public class StrukActivity extends AppCompatActivity {
     TextView tanggal,noantri,namapoli;
     String noantrians,namapolis;
+    ImageView exit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +25,7 @@ public class StrukActivity extends AppCompatActivity {
 
         noantri = findViewById(R.id.noantrians);
         namapoli = findViewById(R.id.poliname);
+        exit = findViewById(R.id.exit);
 
         Intent intent = getIntent();
         noantrians = intent.getStringExtra("kode_antri");
@@ -28,6 +34,15 @@ public class StrukActivity extends AppCompatActivity {
         namapoli.setText(namapolis);
 
         tanggal();
+
+        exit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent(StrukActivity.this, HistoryFragment.class);
+                startActivity(i);
+            }
+        });
+
     }
     public void tanggal (){
 
@@ -37,7 +52,7 @@ public class StrukActivity extends AppCompatActivity {
                 "Agustus", "September", "Oktober", "November",
                 "Desember"};
 
-        String [] namaHari = {  "Sabtu", "Minggu", "Senin", "Selasa", "Rabu", "Kamis","Jumat"};
+        String [] namaHari = {  "Sabtu", "Minggu", "Senin", "Selasa", "Rabu", "Kamis","Jumat","sabtu"};
 
         String bulann = namaBulan[c.get(Calendar.MONTH)];
         String harii = namaHari[c.get(Calendar.DAY_OF_WEEK)];
@@ -50,4 +65,6 @@ public class StrukActivity extends AppCompatActivity {
         tanggal.setText(" "+harii+","+ " " +date+ " " +bulann+ " " +tahunn);
 
     }
+
+
 }

@@ -18,18 +18,14 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     List<Fragment> fragments = new ArrayList<>();
     List<String> strings = new ArrayList<>();
 
-    private final Context mContext;
 
-    public SectionsPagerAdapter(Context context, FragmentManager fm) {
+    public SectionsPagerAdapter(FragmentManager fm) {
         super(fm);
-        mContext = context;
     }
 
     @Override
     public Fragment getItem(int position) {
-        // getItem is called to instantiate the fragment for the given page.
-        // Return a BerlangsungFragment (defined as a static inner class below).
-        return BerlangsungFragment.newInstance(position + 1);
+        return fragments.get(position);
     }
     public void addFragment (Fragment fragment, String title){
         fragments.add(fragment);
