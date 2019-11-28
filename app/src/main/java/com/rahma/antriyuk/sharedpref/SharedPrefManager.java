@@ -11,7 +11,10 @@ public class SharedPrefManager {
 
     public static final int SP_IDUSER = 1;
     public static final int SP_NOANTRI = 2;
+    public static final int SP_ID_ANTRI = 3;
     public static final String SP_LOGIN="spLogin";
+
+
 
     SharedPreferences sp;
     SharedPreferences.Editor spEditor;
@@ -49,6 +52,9 @@ public class SharedPrefManager {
     }
     public int getSpIduser(){
         return sp.getInt(String.valueOf(SP_IDUSER),2);
+    }
+    public int getSpIdAntri() {
+        return sp.getInt(String.valueOf(SP_ID_ANTRI),2);
     }
 
 

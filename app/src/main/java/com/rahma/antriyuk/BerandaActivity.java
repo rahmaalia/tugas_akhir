@@ -12,16 +12,19 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.rahma.antriyuk.fragment.HistoryFragment;
 import com.rahma.antriyuk.fragment.HomeFragment;
 import com.rahma.antriyuk.fragment.ProfilFragment;
+import com.rahma.antriyuk.sharedpref.SharedPrefManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BerandaActivity extends AppCompatActivity {
+    SharedPrefManager sharedPrefManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_beranda);
+        sharedPrefManager = new SharedPrefManager(this);
 
         BottomNavigationView bottomNav = findViewById(R.id.navigasi);
         bottomNav.setOnNavigationItemSelectedListener(navListener);

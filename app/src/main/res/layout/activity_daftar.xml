@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DaftarActivity"
-    android:background="@drawable/bgdaftar">
+    tools:context=".DaftarActivity">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/bgdaftar">
 
         <TextView
             android:id="@+id/tvDaftar"
@@ -115,7 +115,8 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/txtLogin"
-                app:layout_constraintVertical_bias="0.153">
+                app:layout_constraintVertical_bias="0.153"
+                app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/katasandi"

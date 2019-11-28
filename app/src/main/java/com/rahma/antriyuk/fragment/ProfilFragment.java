@@ -1,5 +1,8 @@
 package com.rahma.antriyuk.fragment;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -32,6 +35,7 @@ public class ProfilFragment extends Fragment {
     SharedPrefManager sharedPrefManager;
     View view;
     Button bt_keluar;
+    Context mContext;
 
 
     @Nullable
@@ -40,15 +44,18 @@ public class ProfilFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_profil, container, false);
         super.onCreate(savedInstanceState);
 
-        sharedPrefManager = new SharedPrefManager(getContext());
+        mContext = getContext();
+
+        sharedPrefManager = new SharedPrefManager(mContext);
         initComponenrt();
-        TvResultNama.setText(sharedPrefManager.getSpNama());
+        TvResultNama.setText(sharedPrefManager.getSpUsername());
         resultUsername.setText(sharedPrefManager.getSpNama());
         resultNotelp.setText(sharedPrefManager.getSpTelp());
 
         nama = sharedPrefManager.getSpNama();
         nomer = sharedPrefManager.getSpTelp();
         username = sharedPrefManager.getSpUsername();
+        mContext = getContext();
         pf = this;
 
 
@@ -56,10 +63,31 @@ public class ProfilFragment extends Fragment {
         bt_keluar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                sharedPrefManager = new SharedPrefManager(getContext());
-                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_LOGIN, false);
-                startActivity(new Intent(getContext(), MainActivity.class)
-                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+
+                AlertDialog.Builder alertdialogBuilder = new AlertDialog.Builder(mContext);
+                alertdialogBuilder.setTitle("Keluar");
+
+                alertdialogBuilder
+                        .setMessage("Apakah anda yakin?")
+                        .setCancelable(false)
+                        .setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                sharedPrefManager = new SharedPrefManager(getContext());
+                                sharedPrefManager.saveSPBoolean(SharedPrefManager.SP_LOGIN, false);
+                                startActivity(new Intent(getContext(), MainActivity.class)
+                                 .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK));
+                            }
+                        })
+                        .setNegativeButton("tidak", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+
+                AlertDialog alertDialog = alertdialogBuilder.create();
+                alertDialog.show();
             }
         });
 

@@ -1,14 +1,17 @@
 package com.rahma.antriyuk.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.rahma.antriyuk.DetailActivity;
 import com.rahma.antriyuk.Entity.MAntrianak;
 import com.rahma.antriyuk.Entity.MAntrigigi;
 import com.rahma.antriyuk.R;
@@ -19,6 +22,7 @@ import java.util.List;
 public class GigiAdapter extends RecyclerView.Adapter<GigiAdapter.GigiViewHolder> {
     private List<MAntrigigi> mAntrigigis;
     Context mContext;
+    CardView cardView;
 
     public GigiAdapter(Context mContext, List<MAntrigigi> antrigigis) {
         this.mContext = mContext;
@@ -52,6 +56,23 @@ public class GigiAdapter extends RecyclerView.Adapter<GigiAdapter.GigiViewHolder
             super(itemView);
             namapoligigi = itemView.findViewById(R.id.H_namapasien);
             noantriangigi = itemView.findViewById(R.id.H_noantri);
+            cardView = itemView.findViewById(R.id.cvHistory);
+
+            cardView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION){
+                        Intent i = new Intent(mContext, DetailActivity.class);
+                        i.putExtra("nama", mAntrigigis.get(position).getNama());
+                        i.putExtra("id_antri",mAntrigigis.get(position).getId());
+                        i.putExtra("noantrian", mAntrigigis.get(position).getNoAntrian());
+                        i.putExtra("namapoli", mAntrigigis.get(position).getNamaPoli());
+                        mContext.startActivity(i);
+                    }
+
+                }
+            });
 
         }
     }

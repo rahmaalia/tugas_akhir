@@ -31,7 +31,8 @@ public interface BaseApiService {
 
     @FormUrlEncoded
     @POST("antri")
-    Call<ResponseBody> postDataPasien(@Field("id_poli") int id,
+    Call<ResponseBody> postDataPasien(@Field("id") int id_antri,
+                                      @Field("id_poli") int id,
                                       @Field("users_id") int iduser,
                                       @Field("no_identitas") String no_identitas,
                                       @Field("nama") String nama,
@@ -51,6 +52,16 @@ public interface BaseApiService {
 
     @GET("poli")
     Call<ResponseBody> getPoli();
+
+    @FormUrlEncoded
+    @POST("del-antri/{id}")
+    Call<ResponseBody> deleteAntri(@Path("id") int id,
+                                   @Field("id_poli") int id_poli);
+
+    @FormUrlEncoded
+    @POST("update-antri")
+    Call<ResponseBody> updateAntri(@Field("id_poli") int id_poli,
+                                   @Field("id_antri") int id_antri_);
 
     @GET("gett")
     Call<Mhistory> getHistory ();

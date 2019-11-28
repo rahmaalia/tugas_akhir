@@ -2,8 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rahma.antriyuk">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -12,11 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".PanggilActivity"></activity>
+        <activity android:name=".PetugasActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".DetailActivity" />
         <activity
             android:name=".TabActivity"
             android:label="@string/title_activity_tab"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <!-- <activity android:name=".EditActivity"></activity> -->
+            android:theme="@style/AppTheme.NoActionBar" /> <!-- <activity android:name=".EditActivity"></activity> -->
         <activity
             android:name=".StrukActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -29,8 +32,8 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".DaftarActivity" />
         <activity
-            android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:name=".SplashActivity"
+            android:theme="@style/Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -38,5 +41,7 @@
             </intent-filter>
         </activity>
     </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>

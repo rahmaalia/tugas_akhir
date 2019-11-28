@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PetugasActivity"
+    android:background="#fff">
+
+    <RelativeLayout
+        android:id="@+id/RL"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/background">
+
+        <TextView
+            android:id="@+id/puskesmasPtg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Puskesmas Bahagia"
+            android:textSize="25sp"
+            android:textColor="#fff"
+            android:paddingLeft="12dp"
+            android:paddingTop="12dp"/>
+
+        <TextView
+            android:id="@+id/hello"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hallo,"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:paddingLeft="12dp"
+            android:layout_below="@+id/puskesmasPtg"/>
+        <TextView
+            android:id="@+id/tvNamaResultPtg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="petugas"
+            android:textSize="20sp"
+            android:textColor="#fff"
+            android:paddingLeft="12dp"
+            android:layout_toRightOf="@+id/hello"
+            android:layout_below="@id/puskesmasPtg"/>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/RL"
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:gravity="center">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="16dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvAnak"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginRight="15dp"
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardCornerRadius="10dp">
+
+            <TextView
+                android:id="@+id/tvpolianan"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="POLI ANAK"
+                android:textSize="45sp"
+                android:gravity="center"
+                android:textColor="#fff"/>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvUmum"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:cardBackgroundColor="@color/colorPrimary"
+            app:cardCornerRadius="10dp">
+
+            <TextView
+                android:id="@+id/tvpoliumum"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="POLI UMUM"
+                android:textSize="45sp"
+                android:gravity="center"
+                android:textColor="#fff"/>
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvGigi"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_marginRight="15dp"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="10dp">
+
+                <TextView
+                    android:id="@+id/tvpoligigi"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="POLI GIGI"
+                    android:textSize="45sp"
+                    android:gravity="center"
+                    android:textColor="#fff"/>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvMata"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                app:cardBackgroundColor="@color/colorPrimary"
+                app:cardCornerRadius="10dp">
+
+                <TextView
+                    android:id="@+id/tvpolimata"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="POLI MATA"
+                    android:textSize="45sp"
+                    android:gravity="center"
+                    android:textColor="#fff"/>
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

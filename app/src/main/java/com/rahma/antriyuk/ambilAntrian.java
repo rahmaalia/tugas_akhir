@@ -35,7 +35,7 @@ public class ambilAntrian extends AppCompatActivity {
     Button btnAntrian;
     Context mContext;
     ImageView btnback;
-    int noAntrian,id_poli,polisId,users_id;
+    int noAntrian,id_poli,polisId,users_id,antri_id;
     BaseApiService mApiInterface;
     SharedPrefManager sharedPrefManager;
 
@@ -54,7 +54,7 @@ public class ambilAntrian extends AppCompatActivity {
         sharedPrefManager = new SharedPrefManager(this);
         mContext = this;
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         namaPolis = intent.getStringExtra("nPoli");
         polisId = intent.getIntExtra("idpoli",1);
 
@@ -72,6 +72,8 @@ public class ambilAntrian extends AppCompatActivity {
 
         noAntrian = sharedPrefManager.getSpNoantri();
         users_id = sharedPrefManager.getSpIduser();
+
+        antri_id = noAntrian + 1;
 
         if (polisId == 1){
             noAntrianSblm = "PA-" +noAntrian;
@@ -98,7 +100,7 @@ public class ambilAntrian extends AppCompatActivity {
         btnAntrian.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mApiInterface.postDataPasien(polisId,users_id,no_identitas,nama,kota_lahir,tgl_lahir,alamat,jenis_kelamin,kodeAntrian)
+                mApiInterface.postDataPasien(antri_id ,polisId,users_id,no_identitas,nama,kota_lahir,tgl_lahir,alamat,jenis_kelamin,kodeAntrian)
                         .enqueue(new Callback<ResponseBody>() {
                             @Override
                             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -107,9 +109,13 @@ public class ambilAntrian extends AppCompatActivity {
                                         JSONObject jsonRESULT = new JSONObject(response.body().string());
                                         if (jsonRESULT.getString("pesan").equals("berhasil")){
                                             Toast.makeText(mContext,"berhasil",Toast.LENGTH_SHORT).show();
+                                            int id = jsonRESULT.getJSONObject("bio").getInt("id");
                                             Intent i = new Intent(ambilAntrian.this,StrukActivity.class);
                                             i.putExtra("kode_antri",kodeAntrian);
+                                            i.putExtra("id_antrian",id);
                                             i.putExtra("nPoli", namaPolis);
+                                            i.putExtra("idpoli", polisId);
+                                            i.putExtra("nama",nama);
                                             startActivity(i);
                                             finish();
                                         }else {

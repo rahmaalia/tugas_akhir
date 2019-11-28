@@ -59,7 +59,7 @@ public class BerlangsungFragment extends Fragment {
     GigiAdapter gigiAdapter;
     UmumAdapter umumAdapter;
     MataAdapter mataAdapter;
-
+    TextView tv_polia,tv_poliu,tv_polig,tv_polim,tv_gone;
     RecyclerView rvAnak,rvGigi,rvUmum,rvMata;
 
     @Override
@@ -67,13 +67,21 @@ public class BerlangsungFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_berlangsung, container, false);
         mApiService = RetrofitClient.getClient(RetrofitClient.BASE_URL_API).create(BaseApiService.class);
         mContext = getContext();
-        sharedPrefManager=new SharedPrefManager(getContext());
+        sharedPrefManager=new SharedPrefManager(mContext);
         id_user=sharedPrefManager.getSpIduser();
         status="berlangsung";
+        tv_polia=view.findViewById(R.id.tv_polianak);
+        tv_polig=view.findViewById(R.id.tv_poligigi);
+        tv_poliu=view.findViewById(R.id.tv_poliumum);
+        tv_polim=view.findViewById(R.id.tv_polimata);
+
         rvAnak = view.findViewById(R.id.Hrc);
         rvGigi = view.findViewById(R.id.Hrc2);
         rvUmum = view.findViewById(R.id.Hrc3);
         rvMata = view.findViewById(R.id.Hrc4);
+
+        tv_gone = view.findViewById(R.id.tv_gone);
+
         getHistoryAnak();
         mApiService.HistoryRequest(id_user,status).enqueue(new Callback<Mantri>() {
             @Override
@@ -83,7 +91,26 @@ public class BerlangsungFragment extends Fragment {
                     final List<MAntrigigi> mAntrigigis = response.body().getAntriGigi();
                     final List<MAntriumum> mAntriumums = response.body().getAntriUmum();
                     final List<MAntrimata> mAntrimatas = response.body().getAntriMata();
+                    if (response.body().getAntriAnak().isEmpty() && response.body().getAntriMata().isEmpty() && response.body().getAntriUmum().isEmpty() && response.body().getAntriGigi().isEmpty()){
+                        tv_gone.setVisibility(View.VISIBLE);
+                    }
 
+                    if (response.body().getAntriAnak().isEmpty()){
+                        rvAnak.setVisibility(View.GONE);
+                        tv_polia.setVisibility(View.GONE);
+                    }
+                    if (response.body().getAntriMata().isEmpty()){
+                        rvMata.setVisibility(View.GONE);
+                        tv_polim.setVisibility(View.GONE);
+                    }
+                    if (response.body().getAntriUmum().isEmpty()){
+                        rvUmum.setVisibility(View.GONE);
+                        tv_poliu.setVisibility(View.GONE);
+                    }
+                    if (response.body().getAntriGigi().isEmpty()){
+                        rvGigi.setVisibility(View.GONE);
+                        tv_polig.setVisibility(View.GONE);
+                    }
                     rvAnak.setAdapter(new AnakAdapter(mContext,mAntrianaks));
                     anakAdapter.notifyDataSetChanged();
                     rvGigi.setAdapter(new GigiAdapter(mContext,mAntrigigis));

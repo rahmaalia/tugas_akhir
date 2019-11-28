@@ -4,5 +4,5 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="aktif">#00473F</color>
-    <color name="nonAktif">#D6D6D6</color>
+    <color name="nonAktif">#979797</color>
 </resources>

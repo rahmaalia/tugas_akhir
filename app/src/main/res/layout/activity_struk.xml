@@ -8,6 +8,8 @@
     android:orientation="vertical"
     android:background="#ECECEC">
 
+
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
@@ -38,12 +40,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        >
+        android:gravity="center">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cv"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
+        android:layout_height="450dp"
         app:cardBackgroundColor="#FFFFFF"
         android:layout_margin="20dp"
         app:cardCornerRadius="10dp">
@@ -108,6 +110,25 @@
         </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cv">
+
+            <Button
+                android:id="@+id/btn_detail"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="50dp"
+                android:layout_centerInParent="true"
+                android:text="detail"
+                android:background="@drawable/btn_poli"
+                android:textColor="#fff"/>
+
+        </RelativeLayout>
+
     </RelativeLayout>
 
 
